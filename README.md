@@ -41,12 +41,12 @@ Connect the negative terminal of the measured source to Arduino GND. The measure
 
 ### SSD1306 OLED to Arduino Uno
 
-| OLED pin | Arduino Uno pin |
-|---|---|
-| GND | GND |
-| VCC | 5V only if the OLED module supports 5V power; otherwise 3.3V |
-| SCL | A5 |
-| SDA | A4 |
+| OLED pin | Arduino Uno pin                                              |
+| -------- | ------------------------------------------------------------ |
+| GND      | GND                                                          |
+| VCC      | 5V only if the OLED module supports 5V power; otherwise 3.3V |
+| SCL      | A5                                                           |
+| SDA      | A4                                                           |
 
 The common SSD1306 I²C addresses are `0x3C` and `0x3D`. The code uses `0x3C` by default.
 
@@ -55,27 +55,27 @@ The common SSD1306 I²C addresses are `0x3C` and `0x3D`. The code uses `0x3C` by
 The divider output at A0 is:
 
 \[
-V_{A0} = V_{in} \times \frac{R_2}{R_1 + R_2}
+V*{A0} = V*{in} \times \frac{R_2}{R_1 + R_2}
 \]
 
 Using R1 = 18 kΩ and R2 = 10 kΩ:
 
 \[
-V_{A0} = V_{in} \times \frac{10}{18 + 10}
-        = V_{in} \times \frac{10}{28}
+V*{A0} = V*{in} \times \frac{10}{18 + 10}
+= V\_{in} \times \frac{10}{28}
 \]
 
 Rearranging gives the input voltage:
 
 \[
-V_{in} = V_{A0} \times \frac{28}{10}
-       = V_{A0} \times 2.8
+V*{in} = V*{A0} \times \frac{28}{10}
+= V\_{A0} \times 2.8
 \]
 
 The Arduino estimates the voltage at A0 from its 10-bit ADC reading:
 
 \[
-V_{A0} \approx \frac{\text{ADC reading}}{1023} \times V_{ref}
+V*{A0} \approx \frac{\text{ADC reading}}{1023} \times V*{ref}
 \]
 
 The sketch assumes `Vref = 5.0 V`; the actual 5V rail and resistor values may differ. Calibrate with a trusted multimeter for better accuracy.
@@ -113,3 +113,17 @@ The sketch assumes `Vref = 5.0 V`; the actual 5V rail and resistor values may di
 ## Summary
 
 This project uses an Arduino Uno's analog-to-digital converter to measure a DC voltage. An 18 kΩ / 10 kΩ resistor divider scales higher inputs down for A0, and an SSD1306 OLED continuously displays the calculated voltage. It is useful for basic electronics experiments and checking low-voltage sensor and power-supply signals.
+
+## Photos
+
+### Breadboarded Arduino Uno setup
+
+![Breadboarded Arduino Uno voltmeter setup](data/media/setup.jpg)
+
+*Arduino Uno, resistor divider, and SSD1306 OLED assembled on a breadboard.*
+
+### Live voltage measurement
+
+![Live voltage measurement on the OLED display](data/media/reading.jpg)
+
+*The OLED displays a live 2.27 V DC reading during testing.*
